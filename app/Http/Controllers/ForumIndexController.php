@@ -15,16 +15,46 @@ use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
+
 class ForumIndexController extends Controller
 {
-    public function __invoke(){
+    public function __invoke(Request $request){
         return inertia()->render("Frontend/Index",[
-                'discussions' => DiscussionResource::collection(
-                Discussion::with(['topic'])
-                ->orderByPinned()
-                ->paginate(5)
+            'query' => (object) $request->query(),
 
+                'discussions' => DiscussionResource::collection(
+                    QueryBuilder::for(Discussion::class)
+                    ->allowedFilters($this->allowedFilters())
+                    ->with(['topic', 'post', 'latestPost.user', 'participants'])
+                    ->withCount('replies')
+                    ->orderByPinned()
+                    ->orderByLastPost()
+                    ->paginate(10)
+
+                    ->appends($request->query())
             )
         ]);
     }
+
+
+
+
+
+    protected function allowedFilters()
+    {
+        return [
+            AllowedFilter::custom('noreplies', new NoRepliesQueryFilter()),
+            AllowedFilter::custom('topic', new TopicQueryFilter()),
+            // AllowedFilter::custom('solved', new SolvedQueryFilter()),
+            // AllowedFilter::custom('unsolved', new UnsolvedQueryFilter()),
+
+            AllowedFilter::custom('mine', new MineQueryFilter()),
+            AllowedFilter::custom('participating', new ParticipatingQueryFilter()),
+            // AllowedFilter::custom('mentioned', new MentionedQueryFilter()),
+        ];
+    }
+
 }
+
+
+

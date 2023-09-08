@@ -3,8 +3,12 @@
 import FrontendLayout from '@/Layouts/FrontendLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Head, router } from '@inertiajs/vue3';
+import Pagination from '@/Components/Pagination.vue';
+
+import pluralize from 'pluralize'
 
 import Post from '@/Components/Frontend/Post.vue';
+import Navigation from '@/Components/Frontend/Navigation.vue';
 
 
 
@@ -39,17 +43,28 @@ const props = defineProps({
                         </ul>
                     </div>
 
+                    <div class="text-sm">
+                        {{ pluralize('reply', discussion.replies_count, true) }}
+                    </div>
+
                 </div>
             </div>
 
 
+
+            <template v-if="posts.data.length">
                 <Post v-for="post in posts.data" :key="post.id" :post="post"  />
+                <Pagination class="!mt-6" :pagination="posts.meta" />
+            </template>
+
+
         </div>
 
         <template #side>
             <PrimaryButton  class="w-full flex justify-center h-10" >
                 Reply to discussion
             </PrimaryButton>
+            <Navigation :query="query" />
         </template>
     </FrontendLayout>
 </template>

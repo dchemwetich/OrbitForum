@@ -1,13 +1,18 @@
 <script setup>
+
 import FrontendLayout from '@/Layouts/FrontendLayout.vue';
-import { Head } from '@inertiajs/vue3';
-
-
-import Discussion from '@/Components/Frontend/Discussion.vue';
 import Select from '@/Components/Select.vue';
 import TextInput from '@/Components/TextInput.vue';
 import Pagination from '@/Components/Pagination.vue';
+import Navigation from '@/Components/Frontend/Navigation.vue';
+import Discussion from '@/Components/Frontend/Discussion.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import { Head, router } from '@inertiajs/vue3';
+import _omitBy from 'lodash.omitby'
+import _isEmpty from 'lodash.isempty' 
 
+import useCreateDiscussion from '@/Trigers/useCreateDiscussion';
 
 
 
@@ -15,6 +20,33 @@ const props = defineProps({
     discussions: Object,
     query: Object
 })
+
+const { showCreateDiscussionForm } = useCreateDiscussion()
+
+const filterTopic = (e) => {
+    router.visit('/', {
+        data: _omitBy({
+            'filter[topic]': e.target.value
+        }, _isEmpty),
+        preserveScroll: true
+    })
+}
+
+
+// const searchQuery = ref(props.query.search || '')
+
+// const handleSearchInput = _debounce((query) => {
+//     router.reload({
+//         data: { search: query },
+//         preserveScroll: true
+//     })
+// }, 500)
+
+// watch(searchQuery, (query) => {
+//     handleSearchInput(query)
+// })
+
+
 
 </script>
 
@@ -41,7 +73,7 @@ const props = defineProps({
                                 :value="topic.slug"
                                 v-for="topic in $page.props.topics"
                                 :key="topic.id"
-
+                                :selected="query.filter?.topic === topic.slug"
                             >
                                 {{ topic.title }}
                             </option>
@@ -51,11 +83,10 @@ const props = defineProps({
             </div>
 
             <div class="space-y-3">
-                    <!-- <Discussion  /> -->
-
+                <template v-if="discussions.data.length">
                     <Discussion v-for="discussion in discussions.data" :key="discussion.id" :discussion="discussion" />
                     <Pagination class="!mt-6" :pagination="discussions.meta" />
-
+                </template>
             </div>
         </div>
 
