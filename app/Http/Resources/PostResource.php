@@ -29,10 +29,10 @@ class PostResource extends JsonResource
             'created_at' => DateTimeResource::make($this->created_at),
 
 
-            // 'user_can' => [
-            //     'edit' => auth()->user()?->can('edit', $this->resource),
-            //     'delete' => auth()->user()?->can('delete', $this->resource),
-            // ]
+            'user_can' => [
+                'edit' => auth()->user()?->can('edit', $this->resource),
+                'delete' => auth()->user()?->can('delete', $this->resource),
+            ]
         ];
     }
 }

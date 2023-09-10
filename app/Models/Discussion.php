@@ -94,8 +94,8 @@ class Discussion extends Model
             ->distinct();
     }
 
-    // public function solution()
-    // {
-    //     return $this->belongsTo(Post::class, 'solution_post_id');
-    // }
+    public function solution()
+    {
+        return $this->belongsTo(Post::class, 'solution_post_id');
+    }
 }

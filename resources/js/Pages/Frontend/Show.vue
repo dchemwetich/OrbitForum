@@ -2,7 +2,9 @@
 <script setup>
 import FrontendLayout from '@/Layouts/FrontendLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+
 import { Head, router } from '@inertiajs/vue3';
+
 import Pagination from '@/Components/Pagination.vue';
 
 import pluralize from 'pluralize'
@@ -13,6 +15,9 @@ import Navigation from '@/Components/Frontend/Navigation.vue';
 
 import useCreatePost from '@/Trigers/useCreatePost';
 
+import { onMounted, onUpdated, nextTick, watch } from 'vue';
+import VueScrollTo from 'vue-scrollto'
+
 const { showCreatePostForm } = useCreatePost()
 
 const props = defineProps({
@@ -21,6 +26,31 @@ const props = defineProps({
     query: Object,
     postId: Number
 })
+
+const scrollToPost = (postId) => {
+    if (!postId) {
+        return
+    }
+
+    nextTick(() => {
+        VueScrollTo.scrollTo(`#post-${postId}`, 900, { offset: -50 })
+    })
+}
+
+onMounted(() => {
+    scrollToPost(props.postId)
+})
+
+watch(() => props.postId, (postId) => {
+    scrollToPost(postId)
+})
+
+
+const deleteDiscussion = () => {
+    if (window.confirm('Are you sure?')) {
+        router.delete(route('discussions.destroy', props.discussion))
+    }
+}
 
 </script>
 
@@ -42,7 +72,9 @@ const props = defineProps({
                             {{ discussion.title }}
                         </h1>
                         <ul>
-
+                            <li v-if="discussion.user_can.delete">
+                                <button class="text-indigo-700 text-sm" v-on:click="deleteDiscussion">Delete</button>
+                            </li>
                         </ul>
                     </div>
 
@@ -56,7 +88,7 @@ const props = defineProps({
 
 
             <template v-if="posts.data.length">
-                <Post v-for="post in posts.data" :key="post.id" :post="post"  />
+                <Post v-for="post in posts.data" :key="post.id" :post="post" :isSolution="discussion.solution?.id === post.id" />
                 <Pagination class="!mt-6" :pagination="posts.meta" />
             </template>
 
