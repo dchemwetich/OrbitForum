@@ -25,7 +25,7 @@
 
 <script setup>
 import { ref, watch } from 'vue'
-// import MarkdownShortcutToolbar from './MarkdownShortcutToolbar.vue';
+import MarkdownShortcutToolbar from './MarkdownShortcutToolbar.vue';
 
 const props = defineProps({
     form: Object

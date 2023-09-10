@@ -11,11 +11,13 @@
     </AuthenticatedLayout>
 
     <CreateDiscussionForm />
-    <!-- <CreatePostForm /> -->
+
+
+    <CreatePostForm />
 </template>
 
 <script setup>
     import AuthenticatedLayout from './AuthenticatedLayout.vue'
     import CreateDiscussionForm from '@/Components/Frontend/CreateDiscussionForm.vue'
-    // import CreatePostForm from '@/Components/Frontend/CreatePostForm.vue'
+    import CreatePostForm from '@/Components/Frontend/CreatePostForm.vue'
 </script>

@@ -22,10 +22,10 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'body' => $this->body,
             'body_markdown' => app(MarkdownRenderer::class)->toHtml($this->body),
-            
+
             'body_preview' => Str::limit($this->body, 200),
             'user' => PublicUserResource::make($this->whenLoaded('user')),
-            // 'discussion' => DiscussionResource::make($this->whenLoaded('discussion')),
+            'discussion' => DiscussionResource::make($this->whenLoaded('discussion')),
             'created_at' => DateTimeResource::make($this->created_at),
 
 

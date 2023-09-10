@@ -11,6 +11,9 @@ import Post from '@/Components/Frontend/Post.vue';
 import Navigation from '@/Components/Frontend/Navigation.vue';
 
 
+import useCreatePost from '@/Trigers/useCreatePost';
+
+const { showCreatePostForm } = useCreatePost()
 
 const props = defineProps({
     discussion: Object,
@@ -61,7 +64,7 @@ const props = defineProps({
         </div>
 
         <template #side>
-            <PrimaryButton  class="w-full flex justify-center h-10" >
+            <PrimaryButton v-on:click="showCreatePostForm(discussion)" class="w-full flex justify-center h-10" v-if="discussion.user_can.reply">
                 Reply to discussion
             </PrimaryButton>
             <Navigation :query="query" />

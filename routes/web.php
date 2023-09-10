@@ -5,6 +5,9 @@ use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\DiscussionStoreController;
 
+use App\Http\Controllers\PostStoreController;
+
+use App\Http\Controllers\MarkdownController;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -48,10 +51,12 @@ Route::get('/', ForumIndexController::class)->name('home');
 
 Route::get('/discussions/{discussion:slug}', DiscussionShowController::class)->name('discussions.show');
 
+Route::post('/markdown', MarkdownController::class)->name('markdown');
+
 Route::middleware('auth')->group(function () {
 
     Route::post('/discussions', DiscussionStoreController::class)->name('discussions.store');
-    // Route::post('/discussions/{discussion}/posts', PostStoreController::class)->name('posts.store');
+    Route::post('/discussions/{discussion}/posts', PostStoreController::class)->name('posts.store');
     // Route::delete('/discussions/{discussion}', DiscussionDestroyController::class)->name('discussions.destroy');
     // Route::patch('/discussions/{discussion}/solution', DiscussionSolutionPatchController::class)->name('discussions.solution.patch');
 

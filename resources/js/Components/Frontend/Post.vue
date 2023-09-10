@@ -15,8 +15,7 @@
                 <div class="text-sm text-gray-500">Posted <time :datetime="post.created_at.datetime" :title="post.created_at.datetime">{{ post.created_at.human }}</time></div>
             </div>
             <div class="mt-3">
-                <!-- {{ post.body }} -->
-                <form >
+                <!-- <form >
 
 
                     <div class="flex items-center space-x-3 mt-2">
@@ -25,14 +24,21 @@
                         </PrimaryButton>
                         <button  class="text-sm">Cancel</button>
                     </div>
-                </form>
+
+
+                </form> -->
+
                 <div  v-html="post.body_markdown" class="markdown"></div>
             </div>
 
             <ul class="flex items-center space-x-3 mt-6">
-                <li>
-                    <button class="text-indigo-500 text-sm">Reply</button>
+
+
+                <li v-if="post.discussion.user_can.reply">
+                    <button v-on:click="showCreatePostForm(post.discussion, post.user)" class="text-indigo-500 text-sm">Reply</button>
                 </li>
+
+
                 <li >
                     <button  class="text-indigo-500 text-sm">Edit</button>
                 </li>
@@ -53,9 +59,39 @@
 </template>
 
 <script setup>
+import useCreatePost from '@/Trigers/useCreatePost';
+// import { useForm } from '@inertiajs/vue3'
+// import Textarea from '../Textarea.vue';
+// import InputLabel from '../InputLabel.vue';
+// import InputError from '../InputError.vue';
+// import PrimaryButton from '../PrimaryButton.vue';
+// import { ref } from 'vue'
+// import { router } from '@inertiajs/vue3'
 
 const props = defineProps({
     post: Object,
+    isSolution: Boolean
 })
 
+const { showCreatePostForm } = useCreatePost()
+
+// const editing = ref(false)
+// const editForm = useForm({
+//     body: props.post.body
+// })
+
+// const editPost = () => {
+//     editForm.patch(route('posts.patch', props.post), {
+//         preserveScroll: true,
+//         onSuccess: () => { editing.value = false }
+//     })
+// }
+
+// const deletePost = () => {
+//     if (window.confirm('Are you sure?')) {
+//         router.delete(route('posts.destroy', props.post), {
+//             preserveScroll: true
+//         })
+//     }
+// }
 </script>
