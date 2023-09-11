@@ -10,10 +10,10 @@
                         <Link href="/?filter[noreplies]=1" :class="{ 'font-bold': query.filter?.noreplies }">No replies</Link>
                     </li>
                     <li>
-                        <Link >Solved</Link>
+                        <Link href="/?filter[solved]=1" :class="{ 'font-bold': query.filter?.solved }">Solved</Link>
                     </li>
                     <li>
-                        <Link >Unsolved</Link>
+                        <Link href="/?filter[unsolved]=1" :class="{ 'font-bold': query.filter?.unsolved }">Unsolved</Link>
                     </li>
                 </ul>
 

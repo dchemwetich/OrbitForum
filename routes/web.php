@@ -44,12 +44,6 @@ Route::get('/', function () {
 //ref in the route service provider /
 Route::get('/', ForumIndexController::class)->name('home');
 
-
-// Route::get('/discussions/{discussion:slug}', DiscussionShowController::class)->name('discussions.show');
-
-// Route::post('/markdown', MarkdownController::class)->name('markdown');
-
-
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');

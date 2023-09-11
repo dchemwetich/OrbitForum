@@ -10,10 +10,13 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Head, router } from '@inertiajs/vue3';
 import _omitBy from 'lodash.omitby'
-import _isEmpty from 'lodash.isempty' 
+import _isEmpty from 'lodash.isempty'
+
+import _debounce from 'lodash.debounce'
 
 import useCreateDiscussion from '@/Trigers/useCreateDiscussion';
 
+import { ref, watch } from "vue";
 
 
 const props = defineProps({
@@ -33,18 +36,21 @@ const filterTopic = (e) => {
 }
 
 
-// const searchQuery = ref(props.query.search || '')
+const searchQuery = ref(props.query.search || '')
 
-// const handleSearchInput = _debounce((query) => {
-//     router.reload({
-//         data: { search: query },
-//         preserveScroll: true
-//     })
-// }, 500)
 
-// watch(searchQuery, (query) => {
-//     handleSearchInput(query)
-// })
+
+const handleSearchInput = _debounce((query) => {
+    router.reload({
+        data: {search: query},
+        preserveScroll:  true
+    })
+ },
+ 500)
+
+watch(searchQuery, (query   ) => {
+    handleSearchInput(query)
+})
 
 
 
@@ -81,6 +87,7 @@ const filterTopic = (e) => {
                     </div>
                 </div>
             </div>
+
 
             <div class="space-y-3">
                 <template v-if="discussions.data.length">

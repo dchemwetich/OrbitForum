@@ -5,22 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-// use Laravel\Scout\Searchable;
+use Laravel\Scout\Searchable;
 
 class Discussion extends Model
 {
     use HasFactory;
-    // use Searchable;
+    use Searchable;
 
     protected $fillable = [
         'title',
         'slug'
     ];
 
-    // public function toSearchableArray()
-    // {
-    //     return $this->only('id', 'title');
-    // }
+    public function toSearchableArray()
+    {
+        return $this->only('id', 'title');
+    }
 
     protected static function booted()
     {
