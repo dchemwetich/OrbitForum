@@ -47,7 +47,7 @@ class User extends Authenticatable
 
     public function avatarUrl()
     {
-        return 'https://seccdn.libravatar.org/avatar/' . md5($this->email) . '.jpg';
+        return 'https://www.gravatar.com/avatar/' . md5($this->email) . '.jpg';
     }
 
 
