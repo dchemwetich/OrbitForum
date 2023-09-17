@@ -65,7 +65,7 @@ const deleteDiscussion = () => {
                         <span class="inline-flex items-center rounded-lg bg-gray-100 px-3 py-0.5 text-sm text-gray-600">
                             {{ discussion.topic.title }}
                         </span>
-                        <h1 class="text-lg font-medium">
+                        <h1 class="text-lg font-medium ">
                             <template v-if="discussion.is_pinned">
                                 [Pinned]
                             </template>

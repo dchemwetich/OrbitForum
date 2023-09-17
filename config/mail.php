@@ -57,6 +57,11 @@ return [
             // ],
         ],
 
+        'resend' => [
+            'transport' => 'resend',
+        ],
+
+
         'postmark' => [
             'transport' => 'postmark',
             // 'client' => [

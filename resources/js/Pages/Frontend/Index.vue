@@ -61,7 +61,7 @@ watch(searchQuery, (query   ) => {
     <!-- handled in the frontend  -->
 
 
-    <Head title="DreamHacks Forum" />
+    <Head title="DreamHacks" />
 
     <FrontendLayout>
         <div class="space-y-6">
