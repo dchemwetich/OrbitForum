@@ -21,11 +21,15 @@
     },
     "dependencies": {
         "@github/markdown-toolbar-element": "^2.2.0",
+        "@headlessui/vue": "^1.7.16",
+        "@heroicons/vue": "^2.0.18",
+        "@vueuse/core": "^10.4.1",
         "lodash": "^4.17.21",
         "lodash.debounce": "^4.0.8",
         "lodash.isempty": "^4.4.0",
         "lodash.omitby": "^4.6.0",
         "pluralize": "^8.0.0",
+        "shiki": "^0.14.4",
         "vue-scrollto": "^2.20.0"
     }
 }

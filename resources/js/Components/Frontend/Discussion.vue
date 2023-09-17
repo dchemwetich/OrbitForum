@@ -14,19 +14,18 @@
                     </h1>
                 </div>
 
-                <div class="text-gray-500 text-sm mt-3 line-clamp-2">
-                    {{ discussion.post.body_preview }}
+
+                <div v-html="discussion.post.body_preview"  class=" markdown text-gray-500 text-sm mt-3 line-clamp-2">
+
+
                 </div>
 
 
-                <Link :href="`${route('discussions.show', discussion)}?post=${discussion.latest_post.id}`" class="inline-block text-sm mt-3">
-                    Last post by {{ discussion.latest_post.user?.username || '[user deleted]' }} <time :datetime="discussion.latest_post.created_at.datetime" :title="discussion.latest_post.created_at.datetime">{{ discussion.latest_post.created_at.human }}</time>
+                <Link :href="`${route('discussions.show', discussion)}?post=${discussion.latest_post.id}`" class="inline-block text-sm mt-3 bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 to-emerald-900">
+                    Last post by <strong class="bg-clip-text bg-gradient-to-r from-fuchsia-500 via-violet-600 to-pink-500"> {{ discussion.latest_post.user?.username || '[user deleted]' }} </strong> <time :datetime="discussion.latest_post.created_at.datetime" :title="discussion.latest_post.created_at.datetime">{{ discussion.latest_post.created_at.human }}</time>
                 </Link>
 
-
-            </div>
-
-            <div class="flex-shrink-0 flex flex-col items-end">
+                <div class="flex-shrink-0 flex flex-col items-end">
                 <div class="flex items-center justify-start -space-x-1">
                     <img :src="participant.avatar_url" v-for="participant in participants" :key="participant.id" class="h-6 w-6 rounded-full ring-2 ring-white first-of-type:w-7 first-of-type:h-7" :title="participant.username">
                     <span class="!ml-1 text-sm text-gray-600" v-if="discussion.participants.length > 3">+ {{ discussion.participants.length - 3 }} more</span>
@@ -36,6 +35,9 @@
                     {{ pluralize('reply', discussion.replies_count, true) }}
                 </div>
             </div>
+            </div>
+
+
         </div>
 
     </Link>
