@@ -1,6 +1,6 @@
-# Laravel 10 Forum
+# Laravel 11 Forum
 
-This is Laravel 10 Froum project 
+This is Laravel 11 Froum project 
 
 ## Installation with docker
 
