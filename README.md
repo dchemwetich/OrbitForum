@@ -7,7 +7,7 @@ This is Laravel 10 Froum project
 #### 1. Clone the project
 
 ```bash
-git clone https://github.com/xxxxxxxxxxxxx.git
+https://github.com/dchemwetich/GenzForum.git
 ```
 
 #### 2. Run `composer install`
